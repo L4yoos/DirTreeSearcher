@@ -40,21 +40,19 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Debugging output
-    print(f"Arguments: {args}")
+    # If you wanna show your args uncomment this line
+    # print(f"Arguments: {args}")
 
     output = []
     def capture_output(text):
         output.append(text)
 
-    # Redirect print to capture_output if output file is specified
     if args.output:
         import sys
         sys.stdout = type('stdout', (object,), {'write': capture_output})()
 
     list_files(args.startpath, '│   ', args.depth, args.filter, args.search)
 
-    # Write to file if output file is specified
     if args.output:
         with open(args.output, 'w') as f:
             f.write('\n'.join(output))
